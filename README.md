@@ -1,8 +1,9 @@
 # AI-Assisted Development Workflow
 
-[![Workflow CI](https://github.com/wintersyntax/ai-assisted-development-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/wintersyntax/ai-assisted-development-workflow/actions/workflows/ci.yml)
-![Status: Active WIP](https://img.shields.io/badge/status-active%20WIP-f0b429)
-[![License: MIT](https://img.shields.io/badge/license-MIT-3b82f6.svg)](LICENSE)
+[![Portfolio CI](https://github.com/wintersyntax/ai-assisted-development-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/wintersyntax/ai-assisted-development-workflow/actions/workflows/ci.yml)
+![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f)
+![Status: Active WIP](https://img.shields.io/badge/Status-Active%20WIP-f59e0b)
 
 > **Active work in progress.** This repository documents an experimental software-development workflow that I am actively using and refining while building real projects. It is not presented as a finished framework or a universal best practice.
 
@@ -78,6 +79,35 @@ These layers stay deliberately separate: **the repository owns durable state and
 
 OpenRouter is a **model/provider boundary**, not another agent. TypingMind is the planning/review workspace, the controlled Host owns execution and verification, and Cline is only the bounded fallback when a solved change cannot be applied deterministically.
 
+## Interactive demo
+
+The repository includes a **fully synthetic browser demo** of the guarded Host workflow. It contains no private source code, credentials, deployment values, runner identities, or production data.
+
+![Synthetic Host workflow demo](assets/ai-assisted-development-workflow-demo.gif)
+
+*Prepare → Run → Verify → Review. Synthetic portfolio data only; the animation mirrors the operator flow without exposing the private project's code or environment.*
+
+Run it locally with:
+
+```bash
+python3 scripts/serve_demo.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8767
+```
+
+The demo walks through four stages:
+
+1. **Prepare** — SHA-bound Contract + Blueprint and pre-mutation checks;
+2. **Run** — Host-owned activity, read-only Context/Changes evidence, and an exact-edit path with **0 executor provider turns**;
+3. **Verify** — focused tests, guards, and fail-closed repair boundaries;
+4. **Review** — read-only semantic review followed by exact-PR-head CI, human merge approval, and exact-main CI.
+
+Use the stage tabs or left/right arrow keys to step through the flow. The demo keeps a synthetic portfolio presentation layer while following the same four operator phases as the real Host console: Prepare → Run → Verify → Review.
+
 ## Core ideas
 
 ### Repository-owned prompts and durable project memory
@@ -147,12 +177,18 @@ examples/
   architect-handoff.example.json
   do-not-forget-ledger.example.md
   repair-loop.example.md
+demo/
+  index.html
+  style.css
+  app.js
 scripts/
+  serve_demo.py
   validate_workflow.py
 .github/workflows/
   ci.yml
   release.yml
 assets/
+  ai-assisted-development-workflow-demo.gif
 ```
 
 ## Development approach
