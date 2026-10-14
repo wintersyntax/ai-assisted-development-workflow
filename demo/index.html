@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI-Assisted Development Workflow Host Console</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Synthetic portfolio demo</p>
+        <div class="title-row">
+          <h1>AI-Assisted Development Workflow</h1>
+          <span class="console-name">Host console</span>
+        </div>
+        <p class="lede">A synthetic walkthrough of the guarded local execution flow used to carry a SHA-bound task from Architect handoff to exact-ref CI.</p>
+      </div>
+      <div class="top-actions">
+        <div class="status-pill"><span class="dot"></span> Active work in progress</div>
+        <div class="runtime-pill">DEMO · READY</div>
+      </div>
+    </header>
+
+    <section class="meta-grid">
+      <article><span class="label">Task</span><strong>TASK-DEMO-001</strong></article>
+      <article><span class="label">Base main</span><strong>0123456…4567</strong></article>
+      <article><span class="label">Execution path</span><strong>Host exact edits</strong></article>
+      <article><span class="label">Executor provider turns</span><strong>0</strong></article>
+    </section>
+
+    <nav class="stage-nav" aria-label="Workflow stages">
+      <button class="stage active" data-stage="0"><span>1</span>Prepare</button>
+      <button class="stage" data-stage="1"><span>2</span>Run</button>
+      <button class="stage" data-stage="2"><span>3</span>Verify</button>
+      <button class="stage" data-stage="3"><span>4</span>Review</button>
+    </nav>
+
+    <section class="panel active" data-panel="0">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Prepare</p>
+          <h2>Load the Architect handoff</h2>
+          <p class="section-copy">Validate the Contract, Blueprint and handoff hash before the Host is allowed to mutate anything.</p>
+        </div>
+        <div class="badge pass">READY</div>
+      </div>
+
+      <div class="prepare-grid">
+        <article class="card handoff-card">
+          <div class="card-head">
+            <h3>Architect handoff</h3>
+            <span class="micro-status">Validated</span>
+          </div>
+
+          <div class="handoff-columns">
+            <div>
+              <span class="field-label">Execution Contract v1 JSON</span>
+              <div class="textarea-mock">
+                <code>{
+  "task_id": "TASK-DEMO-001",
+  "base_main_sha": "0123456…4567",
+  "objective": "Return the solved state"
+}</code>
+              </div>
+            </div>
+            <div>
+              <span class="field-label">Execution Blueprint v8 JSON</span>
+              <div class="textarea-mock">
+                <code>{
+  "slice_id": "S1",
+  "path": "src/example.py",
+  "mode": "exact_edit",
+  "verify": "focused regression"
+}</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="hash-row">
+            <span class="field-label">Validated HANDOFF_SHA256</span>
+            <div class="hash-box">sha256: 3f61…a8c4</div>
+          </div>
+
+          <div class="button-row">
+            <button class="ghost-button">Load contract</button>
+            <button class="ghost-button">Check preparation</button>
+            <button class="primary-button" data-goto-stage="1">Start run</button>
+          </div>
+        </article>
+
+        <aside class="card side-card">
+          <h3>Before you start</h3>
+          <div class="guide-item">
+            <b>Accepted handoff</b>
+            <span>Contract, Blueprint and validation hash are all present.</span>
+          </div>
+          <div class="guide-item">
+            <b>Check preparation</b>
+            <span>The Host simulates the slice in a disposable workspace.</span>
+          </div>
+          <div class="guide-item">
+            <b>Start run</b>
+            <span>Exact edits are applied by the Host; Cline is fallback only.</span>
+          </div>
+          <div class="callout">No workspace mutation happens before preparation is proven.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="panel" data-panel="1">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Run</p>
+          <h2>Host-owned execution</h2>
+          <p class="section-copy">Follow the run, inspect read-only evidence, and keep fallback mutation tightly bounded.</p>
+        </div>
+        <div class="badge neutral">0 EXECUTOR PROVIDER TURNS</div>
+      </div>
+
+      <div class="run-grid">
+        <article class="card activity-card">
+          <div class="card-head">
+            <h3>Activity</h3>
+            <span class="micro-status success">Exact-edit path</span>
+          </div>
+          <div class="activity-list">
+            <div class="activity-row done">
+              <span class="activity-dot"></span>
+              <div><b>Regression test inserted</b><span>Architect-authored test placed by the Host.</span></div>
+            </div>
+            <div class="activity-row done">
+              <span class="activity-dot"></span>
+              <div><b>Expected RED proven</b><span>Focused regression failed for the intended pre-change reason.</span></div>
+            </div>
+            <div class="activity-row done">
+              <span class="activity-dot"></span>
+              <div><b>Exact edit applied</b><span>Literal replacement applied deterministically.</span></div>
+            </div>
+            <div class="activity-row current">
+              <span class="activity-dot"></span>
+              <div><b>Micro-verification</b><span>Host is running focused tests and diff guards.</span></div>
+            </div>
+          </div>
+        </article>
+
+        <aside class="evidence-stack">
+          <article class="card compact-card">
+            <div class="card-head"><h3>Context</h3><span class="plus">+</span></div>
+            <p>Read-only repository and run evidence.</p>
+            <div class="evidence-line"><span>Base</span><b>0123456…4567</b></div>
+            <div class="evidence-line"><span>Workspace</span><b class="green">CLEAN</b></div>
+          </article>
+          <article class="card compact-card">
+            <div class="card-head"><h3>Changes</h3><span class="plus">+</span></div>
+            <p>Read-only Git evidence.</p>
+            <div class="diff-mini"><span class="minus">- return "initial"</span><span class="plusline">+ return "solved"</span></div>
+          </article>
+        </aside>
+      </div>
+
+      <div class="callout strong">The Host can complete this slice without asking an implementation model to rediscover the change.</div>
+    </section>
+
+    <section class="panel" data-panel="2">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Verify</p>
+          <h2>Reconcile documentation and run final checks</h2>
+          <p class="section-copy">Verification is Host-owned. A model cannot mark its own work complete merely by saying it is done.</p>
+        </div>
+        <div class="badge pass">GREEN</div>
+      </div>
+
+      <div class="verify-grid">
+        <article class="card">
+          <h3>Documentation reconciliation</h3>
+          <ul class="checks">
+            <li class="ok">Task ledger state reconciled</li>
+            <li class="ok">Relevant architecture docs reviewed</li>
+            <li class="ok">No undocumented follow-up remains in chat only</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Final Verification</h3>
+          <ul class="checks">
+            <li class="ok">git diff hygiene</li>
+            <li class="ok">focused regression</li>
+            <li class="ok">impacted tests</li>
+            <li class="ok">workspace identity unchanged</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="verification-summary">
+        <div><span>Disposition</span><b>VERIFIED</b></div>
+        <div><span>Mutation scope</span><b>Exact declared paths only</b></div>
+        <div><span>Executor provider turns</span><b>0</b></div>
+      </div>
+
+      <div class="callout strong">Commit, push, PR, and merge authority still remain outside the Host.</div>
+      <div class="button-row"><button class="primary-button" data-goto-stage="3">Prepare review</button></div>
+    </section>
+
+    <section class="panel" data-panel="3">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Review</p>
+          <h2>Export evidence and hand off to the repository workflow</h2>
+          <p class="section-copy">Independent read-only review comes after Host verification; local success does not replace repository acceptance.</p>
+        </div>
+        <div class="badge pass">PASS</div>
+      </div>
+
+      <div class="review-grid">
+        <article class="card">
+          <div class="card-head">
+            <h3>Reviewer package</h3>
+            <span class="micro-status">Ready</span>
+          </div>
+          <p>Bounded review evidence includes the Contract, Blueprint, exact diff, verification results, and documentation reconciliation.</p>
+          <div class="button-row left">
+            <button class="primary-button">Export reviewer package</button>
+            <button class="ghost-button">Inspect diff</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Repository handoff</h3>
+          <ol class="repo-steps">
+            <li>Read-only Reviewer returns <b>PASS</b>.</li>
+            <li>Commit and push the verified paths.</li>
+            <li>Open the PR and pass exact-head acceptance.</li>
+            <li>Human approves merge.</li>
+            <li>Exact new main passes acceptance.</li>
+          </ol>
+        </article>
+      </div>
+
+      <div class="pipeline">
+        <div class="node"><span>Reviewer</span><b>PASS</b></div>
+        <div class="arrow">→</div>
+        <div class="node"><span>PR head</span><b>CI GREEN</b></div>
+        <div class="arrow">→</div>
+        <div class="node"><span>Human</span><b>MERGE</b></div>
+        <div class="arrow">→</div>
+        <div class="node"><span>New main</span><b>CI GREEN</b></div>
+      </div>
+    </section>
+
+    <footer>Synthetic data only · No private repository code, credentials, deployment values, runner identities, or production data.</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
