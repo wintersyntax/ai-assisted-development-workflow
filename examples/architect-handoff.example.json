@@ -1,0 +1,163 @@
+{
+  "_comment": "Sanitised representative subset of the Contract + multi-slice Blueprint shape used by the source workflow.",
+  "contract": {
+    "contract_version": 1,
+    "task_id": "TASK-DEMO-001",
+    "base_main_sha": "0123456789abcdef0123456789abcdef01234567",
+    "objective": "Change one bounded helper to return the solved state and document the change.",
+    "non_goals": [
+      "Do not alter the public API or unrelated helpers."
+    ],
+    "relevant_paths": [
+      "src/example.py",
+      "tests/test_example.py",
+      "CHANGELOG.md"
+    ],
+    "invariants": [
+      "Behavior outside example_state() remains unchanged."
+    ],
+    "acceptance": [
+      "example_state() returns the solved value."
+    ],
+    "verification": [
+      "Focused regression proves the changed behavior."
+    ],
+    "stop_conditions": [
+      "Stop if the expected helper or exact edit span is absent."
+    ],
+    "risks": [
+      "An overly broad replacement could mutate unrelated behavior."
+    ]
+  },
+  "blueprint": {
+    "blueprint_version": 8,
+    "task_id": "TASK-DEMO-001",
+    "solved_solution": "Use an Architect-authored regression and one exact replacement, verify it, then update documentation.",
+    "slices": [
+      {
+        "slice_id": "S1",
+        "depends_on": [],
+        "paths": [
+          "src/example.py"
+        ],
+        "exact_changes": [
+          {
+            "change_id": "C1",
+            "instruction": "Return the solved value from example_state().",
+            "target_refs": [
+              "T1"
+            ],
+            "edits": [
+              {
+                "old_text": "def example_state():\n    return \"initial\"\n",
+                "new_text": "def example_state():\n    return \"solved\"\n"
+              }
+            ]
+          }
+        ],
+        "mutation_targets": [
+          {
+            "target_id": "T1",
+            "path": "src/example.py",
+            "target_kind": "edit",
+            "anchors": [
+              "def example_state():"
+            ]
+          }
+        ],
+        "known_facts": [
+          "The helper exists at the pinned base and the edit span is unique."
+        ],
+        "regression_tests": [
+          {
+            "test_id": "R1",
+            "path": "tests/test_example.py",
+            "placement": {
+              "mode": "new_module"
+            },
+            "code": "import unittest\n\nfrom src.example import example_state\n\n\nclass ExampleStateTests(unittest.TestCase):\n    def test_returns_solved_value(self):\n        self.assertEqual(example_state(), \"solved\")",
+            "subject_symbols": [
+              "example_state"
+            ],
+            "expectation_on_base": "red",
+            "failure_contains": "!= 'solved'"
+          }
+        ],
+        "preserve": [
+          "No unrelated source behavior changes."
+        ],
+        "verify": {
+          "commands": [
+            [
+              "python",
+              "-m",
+              "unittest",
+              "tests.test_example"
+            ]
+          ]
+        },
+        "stop_conditions": [
+          "Stop if the regression fails for an unrelated reason."
+        ]
+      },
+      {
+        "slice_id": "S2",
+        "depends_on": [
+          "S1"
+        ],
+        "paths": [
+          "CHANGELOG.md"
+        ],
+        "exact_changes": [
+          {
+            "change_id": "C1",
+            "instruction": "Record the solved behavior in the Unreleased changelog.",
+            "target_refs": [
+              "T1"
+            ]
+          }
+        ],
+        "mutation_targets": [
+          {
+            "target_id": "T1",
+            "path": "CHANGELOG.md",
+            "target_kind": "edit",
+            "anchors": [
+              "## Unreleased"
+            ]
+          }
+        ],
+        "known_facts": [
+          "S1 is verified before documentation changes."
+        ],
+        "regression_tests": [],
+        "preserve": [
+          "Existing changelog history is unchanged."
+        ],
+        "verify": {
+          "commands": [
+            [
+              "python",
+              "-m",
+              "unittest",
+              "tests.test_example"
+            ]
+          ]
+        },
+        "stop_conditions": [
+          "Stop if the changelog anchor is absent."
+        ]
+      }
+    ],
+    "final_verify": {
+      "commands": [
+        [
+          "python",
+          "scripts/validate_workflow.py"
+        ]
+      ],
+      "require_documentation_reconciliation": true,
+      "require_pr_ready": true
+    }
+  }
+}
